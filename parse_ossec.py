@@ -32,6 +32,8 @@ class LogParser(object):
         """
         will try twice
         """
+        if log_text=='' or log_text==' ':
+            return None
         match = re.search(self.pat1,log_text)
         if match == None:
             match = re.search(self.pat2,log_text)
