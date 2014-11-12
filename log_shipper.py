@@ -12,7 +12,7 @@ class LogShipper(object):
     """
 
     """
-    def __init__(self,host='127.0.0.1',port=6379):
+    def __init__(self,rhost='127.0.0.1',port=6379):
         self.redis = Redis(host,port)
 
     def ship(self,d):

@@ -18,11 +18,10 @@ class LogParser(object):
     def get_one_log(self,f=None):
         if f == None:
             f = self.f
-        fr = f.xreadlines()
-        new_line = fr.readline()
+        new_line = f.readline()
         log_text = new_line
         while new_line != '\n':
-            new_line = fr.readline()
+            new_line = f.readline()
             log_text = log_text + new_line
         return log_text
 
