@@ -21,6 +21,9 @@ class LogParser(object):
         new_line = f.readline()
         log_text = new_line
         while new_line != '\n':
+            if new_line == '' or new_line == ' ':
+                # EOF
+                break
             new_line = f.readline()
             log_text = log_text + new_line
         return log_text
