@@ -23,7 +23,7 @@ class LogShipper(object):
         try:
             ret = self.redis.lpush(d['log_type'],json.dumps(d))
             print("\r Processed {0} Entries\r".format(ret),file=sys.stdout,end=" ")
-            self.redis.add('log_types',d['log_type'])
+            self.redis.sadd('log_types',d['log_type'])
         except Exception,e:
             print(e)
         return ret
