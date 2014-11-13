@@ -2,7 +2,7 @@
 """
 ship ossec parse result to redis server
 """
-
+from __future__ import print_function
 from redis import Redis
 import json
 
@@ -22,15 +22,24 @@ class LogShipper(object):
         """
         try:
             ret = self.redis.lpush(d['log_type'],json.dumps(d))
-            ret = self.redis.lpush('log_types',d['log_type'])
+            print("\r Processed {0} Entries\r".format(ret),file=sys.stdout,end=" ")
+            self.redis.add('log_types',d['log_type'])
         except Exception,e:
             print(e)
-            return -1
         return ret
 
 
 if __name__=='__main__':
-    from parse_ossec import LogParse
+    from parse_ossec import LogParser
+    import sys
+
+    if len(sys.argv) < 2:
+        log_file='/var/ossec/logs/alerts/alerts.log'
+    elif len(sys.argv) == 2:
+        log_file = sys.argv[1]
+    else:
+        exit(-1)
+
     lp = LogParser(log_file='/var/ossec/logs/alerts/alerts.log')
     ls = LogShipper(rhost='127.0.0.1',port=6379)
 
