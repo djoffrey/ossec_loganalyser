@@ -21,9 +21,13 @@ class LogShipper(object):
         and append self type to redis queue named 'log_types'
         """
         try:
-            ret = self.redis.lpush(d['log_type'],json.dumps(d))
-            print("\r Processed {0} Entries\r".format(ret),file=sys.stdout,end=" ")
+            # record type
             self.redis.sadd('log_types',d['log_type'])
+            # register timeid in log_type queue
+            ret = self.redis.sadd(d['log_type'],d['log_timestamp'])
+            # save the entry
+            self.redis.set(d['log_type']+d['log_timestamp'],json.dumps(d))
+            print("\r Processed {0} Entries\r ".format(ret),file=sys.stdout,end=" ")
         except Exception,e:
             print(e)
         return ret

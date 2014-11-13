@@ -4,6 +4,19 @@ parse ossec alert.log
 """
 import re
 
+"""
+{"remaining_message": "Src IP: 10.0.0.96\\n10.0.0.96 - - [10/Nov/2014:18:25:07 +0800] \\"GET /xhprof_html/index.php?run=5460925d3eb96&source=xhprof_foo HTTP/1.0\\" 200 1961 \\"-\\" \\"Wget/1.12 (linux-gnu)\\"\\n\\n",
+"severity": "6",
+"ip": "10.0.0.24",
+ "log_timestamp": "1415615109.103674",
+"rule_number": "31511",
+"rule_path": "/var/log/nginx/access.log",
+"log_message": "Blacklisted user agent (wget).",
+ "log_time": "2014 Nov 10 18:25:09",
+ "log_type": "web,appsec,attack",
+"rhost": "(HuoBi_web4_r01b013.idc.huobi.com)"}
+"""
+
 class LogParser(object):
     def __init__(self,log_file=''):
         """
