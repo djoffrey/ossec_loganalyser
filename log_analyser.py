@@ -5,6 +5,7 @@ main worker
 from parse_ossec import LogParser
 from log_shipper import LogShipper
 
+
 if __name__=='__main__':
     lp = LogParser(log_file='/var/ossec/logs/alerts/alerts.log')
     ls = LogShipper(rhost='127.0.0.1',port=6379)
