@@ -21,4 +21,4 @@ if __name__=='__main__':
                 continue
             ls.ship(alert_dict)
 
-    print("parse and ship done.")
+    #print("parse and ship done.")
