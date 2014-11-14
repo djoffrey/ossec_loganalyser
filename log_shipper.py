@@ -24,9 +24,9 @@ class LogShipper(object):
             # record type
             self.redis.sadd('log_types',d['log_type'])
             # register timeid in log_type queue
-            ret = self.redis.sadd(d['log_type'],d['log_timestamp'])
+            ret = self.redis.sadd(d['log_type'],d['log_type']+'_'+d['log_timestamp'])
             # save the entry
-            self.redis.set(d['log_type']+d['log_timestamp'],json.dumps(d))
+            ret = self.redis.set(d['log_type']+'_'+d['log_timestamp'],json.dumps(d))
             print("\r Processed {0} Entries\r ".format(ret),file=sys.stdout,end=" ")
         except Exception,e:
             print(e)
