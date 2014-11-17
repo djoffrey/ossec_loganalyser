@@ -35,7 +35,7 @@ class LogShipper(object):
             print("\r Processed {0} Entries\r ".format(ret),file=sys.stdout,end=" ")
         except Exception,e:
             print(e)
-        print('\n')
+
         return ret
 
 def ship_file(f=''):
