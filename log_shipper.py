@@ -3,6 +3,10 @@
 ship ossec parse result to redis server
 """
 from __future__ import print_function
+
+import glob
+import os
+
 from redis import Redis
 import json
 
@@ -51,11 +55,24 @@ def ship_file(f=''):
                 ls.ship(alert_dict)
 
 
+def recursive_get_file_list(target=''):
+    targets = []
+    for t in glob.glob(target+'/*'):
+        if os.path.isfile(t):
+            targets.append(t)
+        elif os.path.isdir(t):
+            targets.extend(recursive_get_file_list(t))
+        else:
+            return None
+    return targets
+
+
+"""
+Do all
+"""
 if __name__=='__main__':
     from parse_ossec import LogParser
     import sys
-    import os
-    import glob
 
     if len(sys.argv) < 2:
         log_file='/var/ossec/logs/alerts/alerts.log'
@@ -64,7 +81,7 @@ if __name__=='__main__':
         if os.path.isfile(target):
             ship_file(target)
         else:
-            targets = glob.glob(target+'/*')
+            targets = recursive_get_file_list(target)
             for t in targets:
                 ship_file(t)
     else:
