@@ -54,7 +54,7 @@ def ship_file(f=''):
                 if alert_dict == None:
                     continue
                 alert_text = lp.get_one_log()
-                ls.ship(json.dumps(alert_dict))
+                ls.ship(alert_dict)
 
 
 def clear_db():
