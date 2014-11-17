@@ -96,10 +96,11 @@ if __name__=='__main__':
         if os.path.isfile(target):
             ship_file(target)
         else:
+            clear_db()
             targets = recursive_get_file_list(target)
             for t in targets:
                 ship_file(t)
-        clear_db()
+
         collect_tabs()
     else:
         exit(-1)
