@@ -66,7 +66,7 @@ def collect_tabs():
     for t in total_tab:
         tt = r.smembers(t)
         for ttt in tt:
-            r.lpush(r.get(ttt))
+            r.lpush('all_'+t,r.get(ttt))
 
 
 def recursive_get_file_list(target=''):
