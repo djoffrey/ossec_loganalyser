@@ -51,9 +51,9 @@ def ship_file(f=''):
                 break
             else:
                 alert_dict = lp.parse_one_log(alert_text)
+                alert_text = lp.get_one_log()
                 if alert_dict == None:
                     continue
-                alert_text = lp.get_one_log()
                 ls.ship(alert_dict)
 
 
