@@ -34,6 +34,7 @@ class LogShipper(object):
             print("\r Processed {0} Entries\r ".format(ret),file=sys.stdout,end=" ")
         except Exception,e:
             print(e)
+        print('\n')
         return ret
 
 def ship_file(f=''):
@@ -53,6 +54,19 @@ def ship_file(f=''):
                 if alert_dict == None:
                     continue
                 ls.ship(alert_dict)
+
+def clear_db():
+    r = redis.Redis()
+    r.flushdb()
+    return True
+
+def collect_tabs():
+    r = redis.Redis()
+    total_tab = r.smembers('log_types')
+    for t in total_tab:
+        tt = r.smembers(t)
+        for ttt in tt:
+            r.lpush(r.get(ttt))
 
 
 def recursive_get_file_list(target=''):
@@ -84,7 +98,9 @@ if __name__=='__main__':
             targets = recursive_get_file_list(target)
             for t in targets:
                 ship_file(t)
+        clear_db()
+        collect_tabs()
     else:
         exit(-1)
 
-    print("parse and ship done.")
+    print("\n\n parse and ship done.")
