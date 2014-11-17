@@ -8,6 +8,7 @@ import glob
 import os
 
 from redis import Redis
+import redis
 import json
 
 # host : localhost
