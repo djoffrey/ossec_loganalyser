@@ -14,7 +14,7 @@ import re
 "log_message": "Blacklisted user agent (wget).",
  "log_time": "2014 Nov 10 18:25:09",
  "log_type": "web,appsec,attack",
-"rhost": "(HuoBi_web4_r01b013.idc.huobi.com)"}
+"rhost": "(hosts.com)"}
 """
 
 class LogParser(object):
