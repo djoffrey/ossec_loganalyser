@@ -10,9 +10,10 @@ import datetime
 import time
 from redis import Redis
 import sys
+import os
 
 # get email corresponding person email
-def get_group_hostname(fName='/home/huangyucheng/ossec_loganalyser/group_hostnames.csv'):
+def get_group_hostname(fName='group_hostnames.csv'):
     res = {}
     with open(fName) as f:
         for l in f.readlines():
@@ -20,7 +21,7 @@ def get_group_hostname(fName='/home/huangyucheng/ossec_loganalyser/group_hostnam
             res[hostname.strip()] = int(group.strip())
     return res
 
-def register_group_email(fName='/home/huangyucheng/ossec_loganalyser/email_concern_list.csv'):
+def register_group_email(fName='email_concern_list.csv'):
     res = {}
     with open(fName) as f:
         for l in f.readlines():
@@ -49,11 +50,12 @@ def render_body(content_list):
     for c in content_list:
         contents = '{0}<br>{1}'.format(contents,c)
     body = ""
-    with open('/home/huangyucheng/ossec_loganalyser/mail_temp_alt.html','r+') as f:
+    with open('mail_temp_alt.html','r+') as f:
         body = f.read()
     body = body.format(contents)
     return body
         
+
 def process_one_log(log):
     host = log['reporting_host']
     level = int(log['severity'])
@@ -74,6 +76,7 @@ def process_one_log(log):
     r.lpush(group_level,content)
     return 1
 
+
 def process_logs():
     #get mailto list
     lp = LogParser()
@@ -90,8 +93,10 @@ def process_logs():
         total_send += process_one_log(log)
     return total_send
 
+
 def main():
     process_logs()
+
 
 def get_sendlist_by_group_level(group,level):
     mailto_list = []
