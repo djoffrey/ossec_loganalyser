@@ -1,10 +1,13 @@
-# Parse OSSEC alert.log
+# ossec_loganalyser
 
-#### Reference: https://github.com/magenx/Logstash
+## Reference: [https://github.com/magenx/Logstash]
 
-### Usage():
+## Initialization guide
+
+   * install logstash
+   * install ossec
 
 
-# TODO
+## TODO
 * automated
 * statilistic stuff
